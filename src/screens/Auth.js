@@ -6,10 +6,13 @@ export default class Auth extends Component {
   constructor(props){
     super(props);
     this.state = {
-      showLogin: false
+      showLogin: false,
+      notice: ''
     };
     this.whichForm = this.whichForm.bind(this);
     this.authSwitch = this.authSwitch.bind(this);
+    this.makeNotice = this.makeNotice.bind(this);
+    this.message = '';
   }
 
   authSwitch() {
@@ -18,14 +21,18 @@ export default class Auth extends Component {
     });
   }
 
+  makeNotice(mess){
+    this.message = mess;
+  }
+
   whichForm() {
     if(!this.state.showLogin){
       return(
-        <Registration authSwitch={this.authSwitch}/>
+        <Registration  makeNotice={this.makeNotice}  authSwitch={this.authSwitch}/>
       );
     } else {
       return(
-        <Login authSwitch={this.authSwitch}/>
+        <Login notice={this.message} authSwitch={this.authSwitch}/>
       );
     }
   }

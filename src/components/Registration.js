@@ -49,9 +49,14 @@ class Registration extends Component {
     .catch((error) => {
        // Handle returned errors here
        this.setState({
-        error: 'Registration Failed',
+        //error: 'Registration Failed',          --- Uncomment here
         loading: false
       });
+
+      ///////////////////////////////// ----This should go to http response success--put here for testing only
+      this.props.makeNotice('Registration successful, plz login');
+      this.props.authSwitch();   // This will direc to login view
+      ////////////////////////////////
     });
   }else{
     this.setState({

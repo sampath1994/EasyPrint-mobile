@@ -8,7 +8,7 @@ class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: '',
       error: '',
       loading: false
@@ -16,18 +16,22 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, error, loading } = this.state;
-    const { form, section, errorTextStyle } = styles;
+    const { username, password, error, loading } = this.state;
+    const { form, section, errorTextStyle, noticeTextStyle } = styles;
 
     return (
       <Fragment>
+        <Text style={noticeTextStyle}>
+            {this.props.notice}
+          </Text>
+
         <View style={form}>
           <View style={section}>
             <Input
-              placeholder="user@email.com"
-              label="Email"
-              value={email}
-              onChangeText={email => this.setState({ email })}
+              placeholder="username"
+              label="Username"
+              value={username}
+              onChangeText={username => this.setState({ username })}
             />
           </View>
 
@@ -78,6 +82,11 @@ const styles = {
     alignSelf: 'center',
     fontSize: 18,
     color: 'red'
+  },
+  noticeTextStyle: {
+    alignSelf: 'center',
+    fontSize: 18,
+    color: 'green'
   }
 };
 

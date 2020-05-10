@@ -17,9 +17,19 @@ class Registration extends Component {
     this.registerUser = this.registerUser.bind(this);
   }
 
+  confirm_password(){
+    const { password, password_confirmation } = this.state;
+    if(password == password_confirmation){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   registerUser() {
     const { username, email, password } = this.state;
 
+    if(this.confirm_password()){
     this.setState({ error: '', loading: true });
     // NOTE HTTP is insecure, only post to HTTPS in production apps
     
@@ -38,7 +48,17 @@ class Registration extends Component {
     })
     .catch((error) => {
        // Handle returned errors here
+       this.setState({
+        error: 'Registration Failed',
+        loading: false
+      });
     });
+  }else{
+    this.setState({
+      error: 'Confirm password incorrect',
+      loading: false
+    });
+  }
   }
 
   render() {

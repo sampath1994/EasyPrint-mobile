@@ -34,7 +34,7 @@ export default class App extends Component {
       );
     } else if (this.state.jwt) {
       return (
-        <LoggedIn deleteJWT={this.deleteJWT}/>
+        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT}/>
       );
     }
   }

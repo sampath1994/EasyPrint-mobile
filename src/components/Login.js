@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
-
+import { apiurl } from 'react-native-dotenv';
 
 class Login extends Component {
   constructor(props){
@@ -23,7 +23,7 @@ class Login extends Component {
     this.setState({ error: '', loading: true });
 
     // NOTE Post to HTTPS only in production
-    axios.post("http://192.168.1.2:8080/users/signin", null, {params: {
+    axios.post(`${apiurl}users/signin`, null, {params: { 
       username: username,
         password: password
     }})

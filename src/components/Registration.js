@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { View, Text } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
+import { apiurl } from 'react-native-dotenv';
 
 class Registration extends Component {
   constructor(props){
@@ -33,7 +34,7 @@ class Registration extends Component {
     this.setState({ error: '', loading: true });
     // NOTE HTTP is insecure, only post to HTTPS in production apps
     
-    axios.post("http://192.168.1.4:8080/users/signup",{
+    axios.post(`${apiurl}users/signup`,{
       
         username: username,
         email: email,

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { View, Text } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
+import deviceStorage from '../services/deviceStorage';
 
 
 class Login extends Component {
@@ -13,6 +14,34 @@ class Login extends Component {
       error: '',
       loading: false
     };
+    this.loginUser = this.loginUser.bind(this);
+  }
+
+  loginUser() {
+    const { username, password } = this.state;
+
+    this.setState({ error: '', loading: true });
+
+    // NOTE Post to HTTPS only in production
+    axios.post("http://192.168.1.2:8080/users/signin", null, {params: {
+      username: username,
+        password: password
+    }})
+    .then((response) => {
+      deviceStorage.saveKey("id_token", response.data.token);
+      this.props.newJWT(response.data.token);
+    })
+    .catch((error) => {
+      console.log(error);
+      this.onLoginFail();
+    });
+  }
+
+  onLoginFail() {
+    this.setState({
+      error: 'Login Failed',
+      loading: false
+    });
   }
 
   render() {
@@ -50,7 +79,7 @@ class Login extends Component {
           </Text>
 
           {!loading ?
-            <Button>
+            <Button onPress={this.loginUser}>
               Login
             </Button>
             :
